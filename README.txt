@@ -25,5 +25,3 @@ SITE AIB — VOTAÇÃO COM LOGIN INSTITUCIONAL
 - Coloca produto e vídeo em assets/projetos/.
 - Edita script.js e preenche productUrl e videoUrl em cada projeto.
 
-Nota importante:
-Não publiques ficheiros de service account no GitHub. Isso é deixar as chaves do castelo na porta.
