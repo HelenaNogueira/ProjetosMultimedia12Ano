@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email != null;
+    }
+
+    function voterPath() {
+      return /databases/$(database)/documents/aib_voters_2026/$(request.auth.token.email);
+    }
+
+    function isAuthorisedVoter() {
+      return signedIn()
+        && request.auth.token.email.matches('^.+@aemaia\\.com$')
+        && exists(voterPath())
+        && get(voterPath()).data.active == true;
+    }
+
+    function validScore(value) {
+      return value is int && value >= 0 && value <= 5;
+    }
+
+    match /aib_voters_2026/{email} {
+      allow get: if signedIn()
+        && request.auth.token.email == email
+        && resource.data.active == true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /aib_votes_2026/{voteId} {
+      allow read: if isAuthorisedVoter();
+
+      allow create: if isAuthorisedVoter()
+        && voteId == request.resource.data.projectId + '__' + request.auth.token.email
+        && request.resource.data.voterEmail == request.auth.token.email
+        && request.resource.data.keys().hasOnly([
+          'projectId', 'turma', 'projectName', 'voterEmail', 'voterName',
+          'voterClass', 'product', 'video', 'final', 'createdAt'
+        ])
+        && validScore(request.resource.data.product)
+        && validScore(request.resource.data.video)
+        && request.resource.data.final == (request.resource.data.product + request.resource.data.video) / 2
+        && !exists(/databases/$(database)/documents/aib_votes_2026/$(voteId));
+
+      allow update, delete: if false;
+    }
+  }
+}

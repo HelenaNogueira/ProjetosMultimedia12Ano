@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerar votantes autorizados — AIB</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,sans-serif;max-width:980px;margin:32px auto;padding:0 18px;line-height:1.45;color:#122033}textarea{width:100%;min-height:220px}button{padding:12px 18px;border:0;border-radius:10px;background:#122b5c;color:white;font-weight:700;cursor:pointer}pre{white-space:pre-wrap;background:#f3f6fb;padding:16px;border-radius:12px;overflow:auto}.grid{display:grid;gap:14px}code{background:#eef2f7;padding:2px 5px;border-radius:5px}</style>
+</head>
+<body>
+  <h1>Gerar lista de estudantes autorizados</h1>
+  <p>Cola uma linha por estudante no formato <code>codigo,turma</code>. Exemplo: <code>aib-joana-731,12.ºF</code>. Esta página gera os IDs SHA-256 para criares os documentos em <code>aib_voters_2026</code> no Firestore.</p>
+  <div class="grid">
+    <textarea id="input">aib-aluno01,12.ºF
+aib-aluno02,12.ºF
+aib-aluno03,12.ºH</textarea>
+    <button id="generate">Gerar JSON para importar/criar no Firestore</button>
+    <pre id="output"></pre>
+  </div>
+  <script>
+    async function sha256(text){const data=new TextEncoder().encode(text.trim().toLowerCase().replace(/\s+/g,''));const hash=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+    document.querySelector('#generate').addEventListener('click', async()=>{
+      const lines=document.querySelector('#input').value.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+      const out=[];
+      for(const line of lines){const [code,turma='']=line.split(',').map(x=>x.trim()); if(!code) continue; out.push({documentId:await sha256(code), data:{active:true,turma}})}
+      document.querySelector('#output').textContent=JSON.stringify(out,null,2);
+    });
+  </script>
+</body>
+</html>

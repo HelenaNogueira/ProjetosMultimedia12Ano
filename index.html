@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mostra de Projetos AIB — 12.º Ano | Escola Secundária da Maia</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar" aria-label="Topo">
+      <img src="assets/Logo AEMAIA Transparente.png" alt="Logótipo do Agrupamento de Escolas da Maia" class="logo logo-ae" />
+      <img src="assets/Logo ESM Transparente.png" alt="Logótipo da Escola Secundária da Maia" class="logo logo-esm" />
+    </nav>
+    <section class="hero-content">
+      <p class="eyebrow">Aplicações Informáticas B · 12.º ano</p>
+      <h1>Mostra de Projetos Multimédia</h1>
+      <p>Consulta o produto final e o vídeo promocional de cada grupo. A votação é feita em dois campos obrigatórios: produto e vídeo, ambos de 0 a 5.</p>
+      <div class="hero-actions">
+        <a href="#projetos" class="btn primary">Ver projetos</a>
+        <a href="#ranking" class="btn ghost">Ver ranking</a>
+        <a href="#criterios" class="btn ghost">Critérios</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="panel intro">
+      <div>
+        <h2>Como funciona</h2>
+        <p>A professora coloca previamente os ficheiros no GitHub. Só os estudantes autorizados, com login no email institucional, conseguem votar no produto e no vídeo promocional. O site guarda a votação no Firebase/Firestore e atualiza o ranking automaticamente para todos.</p>
+        <p class="warning">Nota sem açúcar: os ficheiros dos projetos são colocados pela professora no GitHub; os votos ficam centralizados no Firebase.</p>
+      </div>
+      <div class="stats" aria-label="Resumo">
+        <span><strong>2</strong> turmas</span>
+        <span><strong>10</strong> grupos</span>
+        <span><strong>0–5</strong> por item</span>
+      </div>
+    </section>
+
+    <section id="criterios" class="panel">
+      <div class="section-title">
+        <p class="eyebrow">Rubrica rápida</p>
+        <h2>Critérios de avaliação sugeridos</h2>
+      </div>
+      <div class="criteria-grid">
+        <article><strong>Produto multimédia</strong><span>Funcionalidade, navegação, integração de media, estabilidade e adequação ao público-alvo.</span></article>
+        <article><strong>Vídeo promocional</strong><span>Narrativa, ritmo, som, imagem, montagem, clareza da mensagem e capacidade de convencer.</span></article>
+        <article><strong>Rigor da informação</strong><span>Qualidade da pesquisa, pertinência do tema, fontes e respeito por direitos de autor.</span></article>
+        <article><strong>Design e experiência</strong><span>Identidade visual, legibilidade, coerência gráfica e facilidade de utilização.</span></article>
+        <article><strong>Originalidade</strong><span>Criatividade, pensamento crítico e solução própria. Copiar é velho; compreender é que dá trabalho.</span></article>
+        <article><strong>Trabalho de equipa</strong><span>Organização, autonomia, colaboração, cumprimento de prazos e capacidade de melhoria.</span></article>
+      </div>
+    </section>
+
+    <section id="ranking" class="panel">
+      <div class="section-title ranking-title">
+        <div>
+          <p class="eyebrow">Resultados</p>
+          <h2>Ranking dos projetos</h2>
+        </div>
+        <button id="exportVotesTop" class="btn secondary">Exportar CSV</button>
+      </div>
+      <div class="ranking-wrap">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Turma</th><th>Projeto</th><th>Produto</th><th>Vídeo</th><th>Média final</th><th>Votos</th>
+            </tr>
+          </thead>
+          <tbody id="rankingBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="projetos" class="projects-section">
+      <div class="section-title">
+        <p class="eyebrow">Projetos e votação</p>
+        <h2>Turmas 12.ºF e 12.ºH</h2>
+      </div>
+      <div class="toolbar">
+        <label>Filtrar turma
+          <select id="classFilter">
+            <option value="all">Todas</option>
+            <option value="12.ºF">12.ºF</option>
+            <option value="12.ºH">12.ºH</option>
+          </select>
+        </label>
+        <div class="auth-box">
+          <span class="auth-label">Sessão</span>
+          <strong id="userEmail">Não autenticado</strong>
+          <span id="authStatus" class="status">Entra com o email institucional para votar.</span>
+        </div>
+        <button id="loginButton" class="btn primary">Entrar com Google institucional</button>
+        <button id="logoutButton" class="btn secondary" hidden>Sair</button>
+        <button id="exportVotes" class="btn secondary">Exportar votos CSV</button>
+        <button id="refreshData" class="btn secondary">Atualizar</button>
+      </div>
+      <p class="hint">Cada email institucional autorizado só vota uma vez por projeto. Tem de avaliar o produto e o vídeo. O voto é guardado no Firebase e conta para o ranking geral.</p>
+      <div id="projectGrid" class="project-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <template id="projectCardTemplate">
+    <article class="project-card">
+      <div class="card-header">
+        <span class="badge"></span>
+        <h3></h3>
+      </div>
+
+      <div class="files-box">
+        <a class="file-link productLink" href="#" target="_blank" rel="noopener">Abrir produto final</a>
+        <a class="file-link videoLink" href="#" target="_blank" rel="noopener">Abrir vídeo promocional</a>
+        <video class="preview" controls hidden></video>
+      </div>
+
+      <div class="vote-box">
+        <label>Produto final <output class="productOutput">0</output>/5
+          <input type="range" min="0" max="5" step="1" value="0" class="productScore" />
+        </label>
+        <label>Vídeo promocional <output class="videoOutput">0</output>/5
+          <input type="range" min="0" max="5" step="1" value="0" class="videoScore" />
+        </label>
+        <button class="btn primary voteButton">Guardar voto nos dois</button>
+        <p class="average">Média final: <strong>0.0</strong> · <span>0 votos</span></p>
+        <p class="already" hidden>Este email já votou neste projeto.</p><p class="saveStatus" aria-live="polite"></p>
+      </div>
+    </article>
+  </template>
+
+  <footer>
+    <p>Escola Secundária da Maia · Aplicações Informáticas B · 12.º ano</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
