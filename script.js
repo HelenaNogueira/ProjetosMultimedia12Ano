@@ -214,7 +214,22 @@ function renderProjects() {
     productScore.addEventListener('input', () => productOutput.value = productScore.value);
     videoScore.addEventListener('input', () => videoOutput.value = videoScore.value);
 
-    const hasVoted = Boolean(voterEmail && projectVotes.some(v => v.voterEmail === voterEmail));
+    const userVote = voterEmail ? projectVotes.find(v => v.voterEmail === voterEmail) : null;
+
+    const hasVoted = Boolean(userVote);
+    
+    if (hasVoted) {
+      productScore.value = Number(userVote.product);
+      videoScore.value = Number(userVote.video);
+      productOutput.value = Number(userVote.product);
+      videoOutput.value = Number(userVote.video);
+    } else {
+      productScore.value = 3;
+      videoScore.value = 3;
+      productOutput.value = 3;
+      videoOutput.value = 3;
+    }
+
     already.hidden = !hasVoted;
     voteButton.disabled = !currentUser || hasVoted;
     voteButton.textContent = !currentUser ? 'Entra para votar' : hasVoted ? 'Voto já registado' : 'Guardar voto nos dois';
