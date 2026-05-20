@@ -3,7 +3,7 @@
 // 3) Project settings > General > Your apps > Web app
 // 4) Copia a configuração para aqui.
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyC8bLqmqGHvNTXt0jE6N5zqjLI7GV0t9iQ",
   authDomain: "projetosmultim.firebaseapp.com",
   projectId: "projetosmultim",
