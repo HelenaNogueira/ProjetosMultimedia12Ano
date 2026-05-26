@@ -224,10 +224,10 @@ function renderProjects() {
       productOutput.value = Number(userVote.product);
       videoOutput.value = Number(userVote.video);
     } else {
-      productScore.value = 3;
-      videoScore.value = 3;
-      productOutput.value = 3;
-      videoOutput.value = 3;
+      productScore.value = 10;
+      videoScore.value = 10;
+      productOutput.value = 10;
+      videoOutput.value = 10;
     }
 
     already.hidden = !hasVoted;
@@ -241,8 +241,8 @@ function renderProjects() {
 
       const product = Number(productScore.value);
       const video = Number(videoScore.value);
-      if (![product, video].every(n => Number.isInteger(n) && n >= 0 && n <= 5)) {
-        alert('A pontuação do produto e do vídeo tem de estar entre 0 e 5. Sim, os dois.');
+      if (![product, video].every(n => Number.isInteger(n) && n >= 0 && n <= 20)) {
+        alert('A pontuação do produto e do vídeo tem de estar entre 0 e 20. Sim, os dois.');
         return;
       }
       const ref = doc(db, VOTES_COLLECTION, voteDocId(id, currentUser.email));
