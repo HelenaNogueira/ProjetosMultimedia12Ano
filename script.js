@@ -30,10 +30,10 @@ const projects = [
   { turma: '12.ºF', nome: 'Infocraft', productUrl: '', videoUrl: '' },
   { turma: '12.ºF', nome: 'Skyscratcher', productUrl: '', videoUrl: '' },
   { turma: '12.ºF', nome: 'Voltsun', productUrl: '', videoUrl: '' },
-  { turma: '12.ºH', nome: 'Cinco Minutos de Futuro', sufixo: 'Grupo 1', productUrl: '', videoUrl: '' },
+  { turma: '12.ºH', nome: 'Cinco Minutos de Futuro', productUrl: '', videoUrl: '' },
   { turma: '12.ºH', nome: 'BIG6', productUrl: '', videoUrl: '' },
   { turma: '12.ºH', nome: 'Bugados mas Informados', productUrl: '', videoUrl: '' },
-  { turma: '12.ºH', nome: 'Cinco Minutos de Futuro', sufixo: 'Grupo 4', productUrl: '', videoUrl: '' },
+  { turma: '12.ºH', nome: 'Cinco Minutos de Futuro', productUrl: '', videoUrl: '' },
   { turma: '12.ºH', nome: 'Entre Linhas', productUrl: '', videoUrl: 'https://youtu.be/_VYet6RjFg4' }
 ];
 
