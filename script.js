@@ -208,6 +208,20 @@ function renderProjects() {
     const videoScore = card.querySelector('.videoScore');
     const productOutput = card.querySelector('.productOutput');
     const videoOutput = card.querySelector('.videoOutput');
+    
+    let productChanged = false;
+    let videoChanged = false;
+    
+    productScore.addEventListener('input', () => {
+    productChanged = true;
+    productOutput.value = productScore.value;
+    });
+
+    videoScore.addEventListener('input', () => {
+      videoChanged = true;
+      videoOutput.value = videoScore.value;
+    });
+    
     const already = card.querySelector('.already');
     const saveStatus = card.querySelector('.saveStatus');
     const voteButton = card.querySelector('.voteButton');
@@ -242,8 +256,8 @@ function renderProjects() {
       const product = Number(productScore.value);
       const video = Number(videoScore.value);
       
-      if (product === 0 || video === 0) {
-        alert('Tens de avaliar o produto final e o vídeo promocional antes de guardar o voto.');
+      if (!productChanged || !videoChanged) {
+        alert('Tens de avaliar o produto e o vídeo antes de guardar o voto.');
         return;
       }
       
