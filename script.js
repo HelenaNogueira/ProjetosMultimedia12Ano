@@ -241,6 +241,12 @@ function renderProjects() {
 
       const product = Number(productScore.value);
       const video = Number(videoScore.value);
+      
+      if (product === 0 || video === 0) {
+        alert('Tens de avaliar o produto final e o vídeo promocional antes de guardar o voto.');
+        return;
+      }
+      
       if (![product, video].every(n => Number.isInteger(n) && n >= 0 && n <= 20)) {
         alert('A pontuação do produto e do vídeo tem de estar entre 0 e 20. Sim, os dois.');
         return;
