@@ -34,7 +34,7 @@ const projects = [
   { turma: '12.ºH', nome: 'BIG6', productUrl: '', videoUrl: '' },
   { turma: '12.ºH', nome: 'Bugados mas Informados', productUrl: '', videoUrl: '' },
   { turma: '12.ºH', nome: 'Cinco Minutos de Futuro', sufixo: 'Grupo 4', productUrl: '', videoUrl: '' },
-  { turma: '12.ºH', nome: 'Entre Linhas', productUrl: '', videoUrl: '' }
+  { turma: '12.ºH', nome: 'Entre Linhas', productUrl: '', videoUrl: 'https://youtu.be/_VYet6RjFg4' }
 ];
 
 const ALLOWED_DOMAIN = 'aemaia.com';
