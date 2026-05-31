@@ -212,21 +212,25 @@ function renderProjects() {
     let productChanged = false;
     let videoChanged = false;
     
+    productScore.value = 10;
+    videoScore.value = 10;
+    productOutput.value = 10;
+    videoOutput.value = 10;
+    
     productScore.addEventListener('input', () => {
-    productChanged = true;
-    productOutput.value = productScore.value;
+      productChanged = true;
+      productOutput.value = productScore.value;
     });
-
+    
     videoScore.addEventListener('input', () => {
       videoChanged = true;
       videoOutput.value = videoScore.value;
     });
+        
     
     const already = card.querySelector('.already');
     const saveStatus = card.querySelector('.saveStatus');
     const voteButton = card.querySelector('.voteButton');
-    productScore.addEventListener('input', () => productOutput.value = productScore.value);
-    videoScore.addEventListener('input', () => videoOutput.value = videoScore.value);
 
     const userVote = voterEmail ? projectVotes.find(v => v.voterEmail === voterEmail) : null;
 
@@ -237,13 +241,8 @@ function renderProjects() {
       videoScore.value = Number(userVote.video);
       productOutput.value = Number(userVote.product);
       videoOutput.value = Number(userVote.video);
-    } else {
-      productScore.value = 10;
-      videoScore.value = 10;
-      productOutput.value = 10;
-      videoOutput.value = 10;
-    }
-
+    } 
+    
     already.hidden = !hasVoted;
     voteButton.disabled = !currentUser || hasVoted;
     voteButton.textContent = !currentUser ? 'Entra para votar' : hasVoted ? 'Voto já registado' : 'Guardar voto nos dois';
