@@ -17,7 +17,7 @@ service cloud.firestore {
     }
 
     function validScore(value) {
-      return value is int && value >= 0 && value <= 5;
+      return value is int && value >= 0 && value <= 20;
     }
 
     match /aib_voters_2026/{email} {
