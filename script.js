@@ -25,7 +25,7 @@ import {
   Exemplo: productUrl: 'assets/projetos/capuccino-news/produto.pdf'
 */
 const projects = [
-  { turma: '12.ºF', nome: 'Capuccino News', productUrl: '', videoUrl: '' },
+  { turma: '12.ºF', nome: 'Capuccino News', productUrl: '', videoUrl: 'https://youtu.be/W25bZmoCb9s' },
   { turma: '12.ºF', nome: 'IA e democracia: Informar ou manipular?', productUrl: '', videoUrl: '' },
   { turma: '12.ºF', nome: 'Infocraft', productUrl: '', videoUrl: '' },
   { turma: '12.ºF', nome: 'Skyscratcher', productUrl: '', videoUrl: '' },
