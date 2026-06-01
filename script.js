@@ -26,7 +26,7 @@ import {
 */
 const projects = [
   { turma: '12.ºF', nome: 'Capuccino News', productUrl: '', videoUrl: 'https://youtu.be/W25bZmoCb9s' },
-  { turma: '12.ºF', nome: 'IA e democracia: Informar ou manipular?', productUrl: '', videoUrl: '' },
+  { turma: '12.ºF', nome: 'IA e democracia: Informar ou manipular?', productUrl: 'https://youtu.be/pkYNBAc38cY', videoUrl: 'https://youtu.be/JhsXf0tDJZs' },
   { turma: '12.ºF', nome: 'Infocraft', productUrl: '', videoUrl: 'https://youtu.be/7oRLdYh0eDc' },
   { turma: '12.ºF', nome: 'Skyscratcher', productUrl: '', videoUrl: '' },
   { turma: '12.ºF', nome: 'Voltsun', productUrl: '', videoUrl: 'https://youtu.be/A_0q_SA6wTk' },
